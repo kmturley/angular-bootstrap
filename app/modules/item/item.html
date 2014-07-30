@@ -1,0 +1,7 @@
+<div class="item">
+    <h1>{{ item.name || 'None' }}</h1>
+    <h3>{{ item.category || 'None' }}</h3>
+    <p>{{ item.date | date: 'MM/dd/yyyy' || 'None' }}</p>
+    <p><a ui-sref="items.view.overlay({template:'app-modal'})" class="btn btn-default">Open Modal</a></p>
+    <p><a ui-sref="items" class="btn btn-default">Close X</a></p>
+</div>

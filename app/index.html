@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <title>Angular Bootstrap</title>
+    <meta name="description" content="" />
+    <meta name=viewport content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="libs/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="modules/app/app.css" />
+    <link rel="stylesheet" href="modules/item/item.css" />
+    <link rel="stylesheet" href="modules/items/items.css" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Angular Bootstrap</a>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li ui-sref-active="active"><a ui-sref="items">Items</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container" ui-view="main">
+    </div>
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular/angular-ui-bootstrap.min.js"></script>
+    <script src="libs/angular/angular-ui-router.min.js"></script>
+    <script src="modules/app/app.js"></script>
+    <script src="modules/item/item.js"></script>
+    <script src="modules/items/items.js"></script>
+</body>
+</html>

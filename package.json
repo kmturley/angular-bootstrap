@@ -1,0 +1,25 @@
+{
+  "name": "angular-bootstrap",
+  "version": "0.0.0",
+  "description": "Angular Bootstrap",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "angular",
+    "bootstrap"
+  ],
+  "author": "kmturley",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.6",
+    "gulp-jsdoc": "^0.1.4",
+    "gulp-karma": "0.0.4",
+    "karma": "^0.12.19",
+    "karma-chrome-launcher": "^0.1.4",
+    "karma-firefox-launcher": "^0.1.3",
+    "karma-jasmine": "^0.1.5",
+    "karma-junit-reporter": "^0.2.2"
+  }
+}
