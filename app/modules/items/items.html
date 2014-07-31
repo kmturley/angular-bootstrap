@@ -6,20 +6,20 @@
             </div>
             <div class="col-xs-4">
                 <p>&nbsp;</p>
-                <input type="text" class="form-control" ng-model="filters.name" placeholder="Name" ng-change="filterChange()" />
+                <input type="text" class="form-control" ng-model="filters.name" placeholder="Name" ng-change="onFilter()" />
             </div>
         </div>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th><a href="" ng-click="predicate='id';reverse=!reverse">#</a></th>
-                    <th><a href="" ng-click="predicate='name';reverse=!reverse">Name</a></th>
-                    <th><a href="" ng-click="predicate='category';reverse=!reverse">Category</a></th>
-                    <th><a href="" ng-click="predicate='date';reverse=!reverse">Date</a></th>
+                    <th class="col-md-1"><a href="" ng-click="predicate='id';reverse=!reverse">#</a></th>
+                    <th class="col-md-6"><a href="" ng-click="predicate='name';reverse=!reverse">Name</a></th>
+                    <th class="col-md-3"><a href="" ng-click="predicate='category';reverse=!reverse">Category</a></th>
+                    <th class="col-md-2"><a href="" ng-click="predicate='date';reverse=!reverse">Date</a></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in items | filter:{name:filters.name,category:filters.category} | orderBy:predicate:reverse | startFrom:currentPage*pageSize | limitTo:pageSize">
+                <tr ng-repeat="item in items | filter:filters | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
                     <td>{{ item.id || 'None' }}</td>
                     <td><a ui-sref="items.view({id:item.id})">{{ item.name || 'None' }}</a></td>
                     <td>{{ item.category || 'None' }}</td>
@@ -27,18 +27,26 @@
                 </tr>
             </tbody>
         </table>
-        <pagination total-items="totalItems" ng-model="currentPage"></pagination>
+        <pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage"></pagination>
     </div>
     <div class="col-md-4">
         <div ui-view="sidebar">
             <div class="filters">
                 <h1>Filters</h1>
-                
-                <h3>Category</h3>
-                <p><a href="" ng-click="filters.category=''">All Categories</a></p>
-                <p><a href="" ng-click="filters.category='music'">Music</a></p>
-                <p><a href="" ng-click="filters.category='film'">Film</a></p>
-                <p><a href="" ng-click="filters.category='tv'">TV</a></p>
+                <h4>Category</h4>
+                <p>
+                    <a href="" ng-class="{active:filters.category==''}" ng-click="filter('category', '')">All</a> / 
+                    <a href="" ng-class="{active:filters.category=='music'}" ng-click="filter('category', 'music')">Music</a> / 
+                    <a href="" ng-class="{active:filters.category=='film'}" ng-click="filter('category', 'film')">Film</a> / 
+                    <a href="" ng-class="{active:filters.category=='tv'}" ng-click="filter('category', 'tv')">TV</a>
+                </p>
+                <h4>Date</h4>
+                <p>
+                    <a href="" ng-class="{active:filters.date==''}" ng-click="filter('date', '')">All</a> /
+                    <a href="" ng-class="{active:filters.date=='day'}" ng-click="filter('date', 'day')">Day</a> /
+                    <a href="" ng-class="{active:filters.date=='week'}" ng-click="filter('date', 'week')">Week</a> /
+                    <a href="" ng-class="{active:filters.date=='month'}" ng-click="filter('date', 'month')">Month</a>
+                </p>
             </div>
         </div>
     </div>
