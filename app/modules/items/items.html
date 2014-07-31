@@ -6,7 +6,7 @@
             </div>
             <div class="col-xs-4">
                 <p>&nbsp;</p>
-                <input type="text" class="form-control" ng-model="filters.name" placeholder="Name" ng-change="onFilter()" />
+                <input type="text" class="form-control" ng-model="filters.name" placeholder="Name" ng-change="currentPage=1" />
             </div>
         </div>
         <table class="table table-striped">
@@ -19,7 +19,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in items | filter:filters | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+                <tr ng-repeat="item in data.items | filter:filters | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize" ng-class="{info:id==item.id}">
                     <td>{{ item.id || 'None' }}</td>
                     <td><a ui-sref="items.view({id:item.id})">{{ item.name || 'None' }}</a></td>
                     <td>{{ item.category || 'None' }}</td>
