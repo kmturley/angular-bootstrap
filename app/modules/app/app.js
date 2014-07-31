@@ -7,12 +7,11 @@
 
 angular.module('app', [
     'ngResource',
-    'ui.bootstrap',
     'ui.router',
     'item',
     'items'
-]).
-    config(function ($stateProvider) {
+])
+    .config(function ($stateProvider) {
         'use strict';
 
         $stateProvider
@@ -23,42 +22,49 @@ angular.module('app', [
                         templateUrl: 'modules/app/app.html'
                     }
                 }
-            })
-            .state('items', {
-                url: '/items',
-                views: {
-                    'main@': {
-                        templateUrl: 'modules/items/items.html'
-                    }
-                }
-            })
-            .state('items.view', {
-                url: '/:id',
-                views: {
-                    'sidebar@items': {
-                        templateUrl: 'modules/item/item.html',
-                        controller: 'item'
-                    }
-                }
-            })
-            .state('items.view.overlay', {
-                url: '/:template',
-                onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-                    $modal.open({
-                        templateUrl: 'modules/app/' + $stateParams.template + '.html',
-                        controller: function ($scope, $modalInstance) {
-                            $scope.ok = function () {
-                                $modalInstance.close();
-                            };
-                            $scope.cancel = function () {
-                                $modalInstance.dismiss('cancel');
-                            };
-                        }
-                    }).result.then(function (e) {
-                        window.history.back();
-                    }, function (e) {
-                        window.history.back();
-                    });
-                }]
             });
+    })
+
+    .factory('Data', function ($resource) {
+        'use strict';
+        return {
+            get: function (params, callback) {
+                var me = this,
+                    actions = {
+                        get: {
+                            method: 'GET',
+                            params: params,
+                            isArray: params.id ? false : true
+                        }
+                    },
+                    url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
+                    key = params.id ? params.section + params.id : params.section;
+
+                me[key] = me[key] || [];
+                $resource(url, null, actions).get(params, function (value) {
+                    me[key] = value || me[key];
+                    if (callback) {
+                        callback(value);
+                    }
+                });
+            },
+            post: function (params, callback) {
+                var me = this,
+                    actions = {
+                        post: {
+                            method: 'POST',
+                            params: params,
+                            isArray: params.id ? false : true
+                        }
+                    },
+                    url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
+                    key = params.id ? params.section + params.id : params.section;
+
+                $resource(url, null, actions).post(me[key], function (value) {
+                    if (callback) {
+                        callback(value);
+                    }
+                });
+            }
+        };
     });
