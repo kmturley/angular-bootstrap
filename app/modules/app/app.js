@@ -6,8 +6,10 @@
 /*globals window, angular, document */
 
 angular.module('app', [
+    'ngResource',
     'ui.bootstrap',
     'ui.router',
+    'item',
     'items'
 ]).
     config(function ($stateProvider) {
