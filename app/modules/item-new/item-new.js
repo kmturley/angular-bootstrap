@@ -1,6 +1,6 @@
 /**
- * @file Item
- * @summary Item module
+ * @file Item new
+ * @summary Item new module
  */
 
 /*globals window, angular, document */
@@ -8,17 +8,19 @@
 angular.module('item-new', [
     'ui.router'
 ])
-    .controller('item-new', function ($rootScope, $scope, $stateParams, Data) {
+    .controller('item-new', function ($scope, $state, Data) {
         'use strict';
         
         $scope.data = Data;
-        $scope.editable = true;
-        $scope.item = {};
+        $scope.data.items_new = {
+            date: new Date()
+        };
 
         $scope.save = function () {
             $scope.isDisabled = true;
-            $scope.data.post({section: 'items', id: $rootScope.id}, function (data) {
+            $scope.data.post({section: 'items', id: 1}, function (data) {
                 $scope.isDisabled = false;
+                $state.go('items');
             });
         };
     });

@@ -5,25 +5,31 @@
         <fieldset ng-disabled="isDisabled">
             <div class="form-group">
                 <label for="name">Image</label>
-                <input type="text" class="form-control" id="image" ng-model="item.image" />
+                <input type="text" class="form-control" id="image" ng-model="data.items_new.image" />
             </div>
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" ng-model="item.name" />
+                <input type="text" class="form-control" id="name" ng-model="data.items_new.name" />
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea class="form-control" id="description" ng-model="item.description"></textarea>
+                <textarea class="form-control" id="description" ng-model="data.items_new.description"></textarea>
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <input type="text" class="form-control" id="category" ng-model="item.category" />
+                <input type="text" class="form-control" id="category" ng-model="data.items_new.category" />
             </div>
             <div class="form-group">
                 <label for="date">Date</label>
-                <input type="text" class="form-control" id="date" ng-model="item.date" />
+                <p class="input-group">
+                    <input type="text" class="form-control" id="date" datepicker-popup="dd/MM/yyyy" ng-model="data.items_new.date" is-open="$parent.dateEndOpen" ng-required="true" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="openDate($event, 'dateEndOpen')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
             </div>
-            <button type="submit" class="btn btn-default" ng-click="save()">Save</button>
+            <button type="submit" class="btn btn-primary" ng-click="save()">Save</button>
+            <button type="submit" class="btn btn-default" ui-sref="items">Cancel</button>
         </fieldset>
     </form>
 </div>
