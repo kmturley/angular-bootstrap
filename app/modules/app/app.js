@@ -8,9 +8,13 @@
 angular.module('app', [
     'ngResource',
     'ui.router',
+    'ui.bootstrap',
     'item',
-    'items'
+    'item-new',
+    'items',
+    'overlay'
 ])
+
     .config(function ($stateProvider) {
         'use strict';
 
@@ -23,6 +27,30 @@ angular.module('app', [
                     }
                 }
             });
+    })
+
+    .run(function ($rootScope, $state, Data) {
+        'use strict';
+        
+        $rootScope.loggedIn = false;
+        $rootScope.data = Data;
+
+        $rootScope.login = function () {
+            $rootScope.data.get({section: 'users', id: 1}, function (data) {
+                $rootScope.user = data;
+                $rootScope.loggedIn = true;
+                if (window.location.hash === '') {
+                    $state.go('items');
+                }
+            });
+        };
+        
+        $rootScope.logout = function () {
+            $rootScope.loggedIn = false;
+            $state.go('app');
+        };
+        
+        $rootScope.login();
     })
 
     .factory('Data', function ($resource) {
@@ -38,11 +66,15 @@ angular.module('app', [
                         }
                     },
                     url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
-                    key = params.id ? params.section + params.id : params.section;
+                    key = params.id ? params.section + '_detail' : params.section;
 
-                me[key] = me[key] || [];
                 $resource(url, null, actions).get(params, function (value) {
-                    me[key] = value || me[key];
+                    me[key] = me[key] || {};
+                    if (params.id) {
+                        me[key][params.id] = value;
+                    } else {
+                        me[key] = value;
+                    }
                     if (callback) {
                         callback(value);
                     }
@@ -58,7 +90,7 @@ angular.module('app', [
                         }
                     },
                     url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
-                    key = params.id ? params.section + params.id : params.section;
+                    key = params.id ? params.section + params.section + '_detail' : params.section;
 
                 $resource(url, null, actions).post(me[key], function (value) {
                     if (callback) {

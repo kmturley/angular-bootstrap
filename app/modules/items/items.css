@@ -7,6 +7,15 @@
 
 }
 
+.items .title h1 {
+    display: inline-block;
+}
+
+.items .title .btn,
+.items .title .form-control {
+    margin-top: 25px;
+}
+
 .items .filters .active {
     color: #000;
 }

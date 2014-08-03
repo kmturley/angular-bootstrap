@@ -10,6 +10,7 @@ angular.module('item', [
 ])
     .controller('item', function ($rootScope, $scope, $stateParams, Data) {
         'use strict';
+        
         $scope.data = Data;
         $scope.editable = false;
         
