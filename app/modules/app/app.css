@@ -10,3 +10,18 @@ body {
 .app {
     
 }
+
+/* user login */
+
+.app .user {
+    color: #fff;
+    padding: 11px 0 0 0;
+}
+
+.app .user img {
+    margin: 0 5px 0 0;
+}
+
+.app .user a {
+    padding: 0;
+}

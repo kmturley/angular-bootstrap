@@ -1,22 +1,7 @@
-<div class="item">
+<div class="item-new">
     <button type="button" class="close" ui-sref="items"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <h1>Item</h1>
-    <div class="view" ng-show="!editable">
-        <dl>
-            <dt>Image</dt>
-            <dd ng-show="item.image"><img ng-src="{{ item.image }}" alt="" /></dd>
-            <dt>Name</dt>
-            <dd>{{ item.name || 'None' }}</dd>
-            <dt>Description</dt>
-            <dd>{{ item.description || 'None' }}</dd>
-            <dt>Category</dt>
-            <dd>{{ item.category || 'None' }}</dd>
-            <dt>Date</dt>
-            <dd>{{ item.date | date: 'MM/dd/yyyy' || 'None' }}</dd>
-        </dl>
-        <button class="btn btn-default" ng-click="edit()">Edit</button>
-    </div>
-    <form role="form" ng-show="editable">
+    <h1>New item</h1>
+    <form role="form">
         <fieldset ng-disabled="isDisabled">
             <div class="form-group">
                 <label for="name">Image</label>

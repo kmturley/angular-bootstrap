@@ -2,6 +2,6 @@
     <div class="col-md-12">
         <h1>Welcome to the app</h1>
         <p>This is an example app using angularjs and twitter bootstrap</p>
-        <p><a ui-sref="items" class="btn btn-default">Open</a></p>
+        <p ng-show="!loggedIn"><a class="btn btn-default" ng-click="login()">Login</a></p>
     </div>
 </div>

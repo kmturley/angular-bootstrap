@@ -1,11 +1,11 @@
 <div class="row items" ng-controller="items">
     <div class="col-md-8">
-        <div class="row">
+        <div class="row title">
             <div class="col-xs-8">
                 <h1>Items</h1>
+                <a ui-sref="items.new" class="btn btn-primary pull-right">New item</a>
             </div>
             <div class="col-xs-4">
-                <p>&nbsp;</p>
                 <input type="text" class="form-control" ng-model="filters.name" placeholder="Name" ng-change="currentPage=1" />
             </div>
         </div>
@@ -19,15 +19,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in data.items | filter:filters | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize" ng-class="{info:id==item.id}">
+                <tr ng-repeat="item in filtered = (data.items | filter:filters | filter:dateFilter) | orderBy:predicate:reverse | startFrom:(currentPage-1)*pageSize | limitTo:pageSize" ng-class="{info:id==item.id}">
                     <td>{{ item.id || 'None' }}</td>
                     <td><a ui-sref="items.view({id:item.id})">{{ item.name || 'None' }}</a></td>
                     <td>{{ item.category || 'None' }}</td>
-                    <td>{{ item.date | date: 'MM/dd/yyyy' || 'None' }}</td>
+                    <td>{{ item.date | date: 'dd/MM/yyyy' || 'None' }}</td>
                 </tr>
             </tbody>
         </table>
-        <pagination total-items="totalItems" items-per-page="pageSize" ng-model="currentPage"></pagination>
+        <pagination ng-model="currentPage" total-items="filtered.length" items-per-page="pageSize"></pagination>
     </div>
     <div class="col-md-4">
         <div ui-view="sidebar">
@@ -35,18 +35,39 @@
                 <h1>Filters</h1>
                 <h4>Category</h4>
                 <p>
-                    <a href="" ng-class="{active:filters.category==''}" ng-click="filter('category', '')">All</a> / 
-                    <a href="" ng-class="{active:filters.category=='music'}" ng-click="filter('category', 'music')">Music</a> / 
-                    <a href="" ng-class="{active:filters.category=='film'}" ng-click="filter('category', 'film')">Film</a> / 
-                    <a href="" ng-class="{active:filters.category=='tv'}" ng-click="filter('category', 'tv')">TV</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':filters.category==''}" ng-click="filter('category', '')">All</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':filters.category=='music'}" ng-click="filter('category', 'music')">Music</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':filters.category=='film'}" ng-click="filter('category', 'film')">Film</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':filters.category=='tv'}" ng-click="filter('category', 'tv')">TV</a>
                 </p>
                 <h4>Date</h4>
                 <p>
-                    <a href="" ng-class="{active:filters.date==''}" ng-click="filter('date', '')">All</a> /
-                    <a href="" ng-class="{active:filters.date=='day'}" ng-click="filter('date', 'day')">Day</a> /
-                    <a href="" ng-class="{active:filters.date=='week'}" ng-click="filter('date', 'week')">Week</a> /
-                    <a href="" ng-class="{active:filters.date=='month'}" ng-click="filter('date', 'month')">Month</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':dateType=='year'}" ng-click="filter('date', 'year')">All</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':dateType=='day'}" ng-click="filter('date', 'day')">Today</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':dateType=='week'}" ng-click="filter('date', 'week')">Past week</a>
+                    <a href="" class="btn btn-default" ng-class="{'btn-primary':dateType=='month'}" ng-click="filter('date', 'month')">Past month</a>
                 </p>
+                <p><a href="" class="btn btn-default" ng-class="{'btn-primary':dateType=='range'}" ng-click="filter('date', 'range')">Select dates</a></p>
+                <div ng-show="showRange">
+                    <div class="form-group">
+                        <label for="startDate">Start date</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="$parent.dateStart" is-open="$parent.dateStartOpen" ng-required="true" ng-change="selectDate(dateStart)" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openDate($event, 'dateStartOpen')"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End date</label>
+                        <p class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="$parent.dateEnd" is-open="$parent.dateEndOpen" ng-required="true" ng-change="selectDate(dateEnd)" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openDate($event, 'dateEndOpen')"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
