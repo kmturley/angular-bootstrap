@@ -29,28 +29,26 @@ angular.module('app', [
             });
     })
 
-    .run(function ($rootScope, $state, Data) {
+    .controller('app', function ($rootScope, $scope, $state, Data) {
         'use strict';
         
-        $rootScope.loggedIn = false;
-        $rootScope.data = Data;
+        $scope.data = Data;
+        $scope.loggedIn = false;
+        $scope.navbarCollapsed = true;
+        $scope.username = 'admin';
 
-        $rootScope.login = function () {
-            $rootScope.data.get({section: 'users', id: 1}, function (data) {
+        $scope.login = function () {
+            $scope.data.get({section: 'users', id: $scope.username}, function (data) {
                 $rootScope.user = data;
-                $rootScope.loggedIn = true;
-                if (window.location.hash === '') {
-                    $state.go('items');
-                }
+                $scope.loggedIn = true;
+                $state.go('items');
             });
         };
         
-        $rootScope.logout = function () {
-            $rootScope.loggedIn = false;
+        $scope.logout = function () {
+            $scope.loggedIn = false;
             $state.go('app');
         };
-        
-        $rootScope.login();
     })
 
     .factory('Data', function ($resource) {
@@ -90,7 +88,9 @@ angular.module('app', [
                         }
                     },
                     url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
-                    key = params.id ? params.section + params.section + '_detail' : params.section;
+                    key = params.id ? params.section + '_new' : params.section;
+                
+                console.log(actions, url, key, me[key]);
 
                 $resource(url, null, actions).post(me[key], function (value) {
                     if (callback) {
