@@ -4,5 +4,20 @@
     "category": "music",
     "date": "2014-05-24T18:21:40.38",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam risus turpis, tincidunt in aliquet sit amet, hendrerit id elit. Aliquam fermentum vitae tortor id facilisis. Mauris suscipit purus sit amet volutpat elementum. Aenean nec sapien non diam viverra venenatis ut in enim.",
-    "image": "http://www.allaboutjazz.com/photos/2010/jazz-honors-the-beatles.jpg"
+    "image": "http://www.allaboutjazz.com/photos/2010/jazz-honors-the-beatles.jpg",
+    "files": [
+        { "name": "Hard Day's Night" },
+        { "name": "Yellow Submarine" },
+        { "name": "Hey Jude" }
+    ],
+    "sections": [
+        { "name": "Section 1" },
+        { "name": "Section 2" },
+        { "name": "Section 3" }
+    ],
+    "comments": [
+        { "name": "John Does", "text": "I love this band!" },
+        { "name": "Sally Smith", "text": "When was their last hit?" },
+        { "name": "Tony Tulip", "text": "I don't like them anymore!" }
+    ]
 }

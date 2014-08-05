@@ -15,6 +15,8 @@ angular.module('item-new', [
         $scope.data.items_new = {
             date: new Date()
         };
+        $scope.accordianOpen1 = true;
+        $scope.accordianOpen2 = false;
 
         $scope.save = function () {
             $scope.isDisabled = true;
