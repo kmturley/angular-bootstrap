@@ -1,44 +1,63 @@
 <div class="item">
     <button type="button" class="close" ui-sref="items"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     <h1>Item</h1>
-    <div class="view" ng-show="!editable">
-        <dl>
-            <dt>Image</dt>
-            <dd ng-show="item.image"><img ng-src="{{ item.image }}" alt="" /></dd>
-            <dt>Name</dt>
-            <dd>{{ item.name || 'None' }}</dd>
-            <dt>Description</dt>
-            <dd>{{ item.description || 'None' }}</dd>
-            <dt>Category</dt>
-            <dd>{{ item.category || 'None' }}</dd>
-            <dt>Date</dt>
-            <dd>{{ item.date | date: 'MM/dd/yyyy' || 'None' }}</dd>
-        </dl>
-        <button class="btn btn-default" ng-click="edit()">Edit</button>
-    </div>
-    <form role="form" ng-show="editable">
-        <fieldset ng-disabled="isDisabled">
-            <div class="form-group">
-                <label for="name">Image</label>
-                <input type="text" class="form-control" id="image" ng-model="item.image" />
+    <tabset justified="true">
+        <tab heading="Details">
+            <div class="view" ng-show="!editable">
+                <dl>
+                    <dt>Image</dt>
+                    <dd ng-show="item.image"><img ng-src="{{ item.image }}" alt="" /></dd>
+                    <dt>Name</dt>
+                    <dd>{{ item.name || 'None' }}</dd>
+                    <dt>Description</dt>
+                    <dd>{{ item.description || 'None' }}</dd>
+                    <dt>Category</dt>
+                    <dd>{{ item.category || 'None' }}</dd>
+                    <dt>Date</dt>
+                    <dd>{{ item.date | date: 'MM/dd/yyyy' || 'None' }}</dd>
+                </dl>
+                <button class="btn btn-default" ng-click="edit()">Edit</button>
             </div>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" ng-model="item.name" />
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" ng-model="item.description"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="category">Category</label>
-                <input type="text" class="form-control" id="category" ng-model="item.category" />
-            </div>
-            <div class="form-group">
-                <label for="date">Date</label>
-                <input type="text" class="form-control" id="date" ng-model="item.date" />
-            </div>
-            <button type="submit" class="btn btn-default" ng-click="save()">Save</button>
-        </fieldset>
-    </form>
+            <form role="form" ng-show="editable">
+                <fieldset ng-disabled="isDisabled">
+                    <div class="form-group">
+                        <label for="name">Image</label>
+                        <input type="text" class="form-control" id="image" ng-model="item.image" />
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" ng-model="item.name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" id="description" ng-model="item.description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <input type="text" class="form-control" id="category" ng-model="item.category" />
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="text" class="form-control" id="date" ng-model="item.date" />
+                    </div>
+                    <button type="submit" class="btn btn-default" ng-click="save()">Save</button>
+                </fieldset>
+            </form>
+        </tab>
+        <tab heading="Files">
+            <ul>
+                <li ng-repeat="file in item.files">{{ file.name }}</li>
+            </ul>
+        </tab>
+        <tab heading="Sections">
+            <ul>
+                <li ng-repeat="section in item.sections">{{ section.name }}</li>
+            </ul>
+        </tab>
+        <tab heading="Comments">
+            <div ng-repeat="comment in item.comments">
+                <p><i>"{{ comment.text }}"</i><br />{{ comment.name }}</p>
+            </ul>
+        </tab>
+    </tabset>
 </div>
