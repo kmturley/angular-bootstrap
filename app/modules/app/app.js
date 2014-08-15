@@ -51,52 +51,78 @@ angular.module('app', [
         };
     })
 
-    .factory('Data', function ($resource) {
+    .factory('Data', function ($rootScope, $resource) {
         'use strict';
         return {
-            get: function (params, callback) {
-                var me = this,
-                    actions = {
-                        get: {
-                            method: 'GET',
-                            params: params,
-                            isArray: params.id ? false : true
-                        }
-                    },
-                    url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
-                    key = params.id ? params.section + '_detail' : params.section;
-
-                $resource(url, null, actions).get(params, function (value) {
-                    me[key] = me[key] || {};
-                    if (params.id) {
-                        me[key][params.id] = value;
-                    } else {
-                        me[key] = value;
-                    }
-                    if (callback) {
-                        callback(value);
-                    }
-                });
+            resource: $resource('data/:section.json', null, {
+                get: { method: 'GET', isArray: false, params: { section: '@section', id: '@id' }, url: 'data/:section/:id.json' },
+                post: { method: 'POST', isArray: false, params: { section: '@section', id: '@id' }, url: 'data/:section/:id.json' },
+                query: { method: 'GET', isArray: true, params: { section: '@section', id: '@id' } }
+            }),
+            /**
+             * @method get
+             * Single item
+             */
+            get: function (params, callback, error) {
+                var me = this;
+                //console.log('get', params);
+                me.resource.get(params, null, function (value) {
+                    me.setData(value, params.section, params.id);
+                    if (callback) { callback(value); }
+                }, error);
             },
-            post: function (params, callback) {
-                var me = this,
-                    actions = {
-                        post: {
-                            method: 'POST',
-                            params: params,
-                            isArray: params.id ? false : true
-                        }
-                    },
-                    url = params.id ? 'data/:section/:id.json' : 'data/:section.json',
-                    key = params.id ? params.section + '_new' : params.section;
-                
-                console.log(actions, url, key, me[key]);
-
-                $resource(url, null, actions).post(me[key], function (value) {
-                    if (callback) {
-                        callback(value);
+            /**
+             * @method post
+             * Submit data
+             */
+            post: function (params, callback, error) {
+                var me = this;
+                //console.log('post', params);
+                me.resource.post(params, me.getData(params.section, params.id), function (value) {
+                    //me.setData(value, params.section, params.id); // do not save post data
+                    if (callback) { callback(value); }
+                }, error);
+            },
+            /**
+             * @method query
+             * List of items
+             */
+            query: function (params, callback, error) {
+                var me = this;
+                //console.log('query', params);
+                me.resource.query(params, null, function (value) {
+                    me.setData(value, params.section, params.id);
+                    if (callback) { callback(value); }
+                }, error);
+            },
+            /**
+             * @method setData
+             * Cache the items for sharing between controllers
+             */
+            setData: function (value, section, id) {
+                if (typeof id === 'number') {
+                    if (!this[section + '_detail']) {
+                        this[section + '_detail'] = {};
                     }
-                });
+                    this[section + '_detail'][id] = value;
+                } else {
+                    this[section] = value;
+                }
+            },
+            /**
+             * @method getData
+             * Get cached data object
+             */
+            getData: function (section, id) {
+                if (typeof id === 'number') {
+                    if (id === 0) {
+                        return this[section + '_new'];
+                    } else {
+                        return this[section + '_detail'][id];
+                    }
+                } else {
+                    return this[section];
+                }
             }
         };
     });

@@ -20,7 +20,7 @@ angular.module('item-new', [
 
         $scope.save = function () {
             $scope.isDisabled = true;
-            $scope.data.post({section: 'items', id: 1}, function (data) {
+            $scope.data.post({section: 'items', id: 0}, function (data) {
                 $scope.isDisabled = false;
                 $state.go('items');
             });
