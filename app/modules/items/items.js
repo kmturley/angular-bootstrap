@@ -104,7 +104,7 @@ angular.module('items', [
             }
         };
 
-        $scope.filter('date', 'day');
+        $scope.filter('date', 'year');
     })
 
     .filter('startFrom', function () {
