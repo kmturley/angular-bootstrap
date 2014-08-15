@@ -11,9 +11,9 @@
         { "name": "Hey Jude" }
     ],
     "sections": [
-        { "name": "Section 1" },
-        { "name": "Section 2" },
-        { "name": "Section 3" }
+        { "start": 111694, "end": 115294 },
+        { "start": 115295, "end": 223230 },
+        { "start": 223231, "end": 227052 }
     ],
     "comments": [
         { "name": "John Does", "text": "I love this band!" },

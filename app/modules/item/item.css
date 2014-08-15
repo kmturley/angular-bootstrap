@@ -10,3 +10,20 @@
 .item img {
     max-width: 100%;
 }
+
+.item .section {
+    clear: both;
+}
+
+.item timecode {
+    display: inline-block;
+    margin: 0 0 10px 0;
+}
+
+.item timecode input {
+    width: 26px;
+    margin: 0 2px 0 2px;
+    padding: 2px 5px;
+    border: none;
+    background-color: #eee;
+}
