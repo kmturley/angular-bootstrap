@@ -11,19 +11,28 @@
     max-width: 100%;
 }
 
+.item .nav-tabs a {
+    cursor: pointer;
+}
+
 .item .section {
     clear: both;
 }
 
 .item timecode {
-    display: inline-block;
-    margin: 0 0 10px 0;
+    margin: 0 1% 10px 0;
+    width: 48%;
+    float: left;
 }
 
-.item timecode input {
-    width: 28px;
-    margin: 0 2px 0 2px;
-    padding: 2px 5px;
+.item timecode input,
+.item timecode .divider {
+    display: inline-block;
+    width: 22%;
+    text-align: center;
     border: none;
-    background-color: #eee;
+}
+
+.item timecode .divider {
+    width: 3%;
 }
