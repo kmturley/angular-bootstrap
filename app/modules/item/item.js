@@ -33,6 +33,34 @@ angular.module('item', [
                 $scope.editable = false;
             });
         };
+        
+        $scope.addSection = function () {
+            var copy = angular.copy($scope.item.sections[$scope.item.sections.length - 1]);
+            $scope.item.sections.push(copy);
+        };
+        
+        $scope.removeSection = function () {
+            $scope.item.sections.splice($scope.item.sections.length - 1, $scope.item.sections.length);
+        };
+    })
+
+    .filter('timecode', function () {
+        'use strict';
+        return function (num) {
+            function format(num) {
+                return num < 10 ? String('0' + Math.floor(num)) : String(Math.floor(num));
+            }
+            
+            var second = 30,
+                minute = 60 * second,
+                hour = 60 * minute,
+                hours = format(num / hour),
+                minutes = format((num % hour) / minute),
+                seconds = format(((num % hour) % minute) / second),
+                milliseconds = format(((num % hour) % minute) % second);
+            
+            return hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
+        };
     })
 
     .directive('timecode', function () {
@@ -40,7 +68,7 @@ angular.module('item', [
         
         return {
             restrict: 'AE',
-            template: '<input type="text" ng-model="hours" ng-click="onClick($event)" ng-keyup="onChange(\'hours\', $event)" maxlength="2" />:<input type="text" ng-model="minutes" ng-click="onClick($event)" ng-keyup="onChange(\'minutes\', $event)" maxlength="2" />:<input type="text" ng-model="seconds" ng-click="onClick($event)" ng-keyup="onChange(\'seconds\', $event)" maxlength="2" />:<input type="text" ng-model="milliseconds" ng-click="onClick($event)" ng-keyup="onChange(\'milliseconds\', $event)" maxlength="2" />',
+            template: '<input type="text" ng-model="hours" ng-click="onClick($event)" ng-keyup="onChange(\'hours\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="minutes" ng-click="onClick($event)" ng-keyup="onChange(\'minutes\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="seconds" ng-click="onClick($event)" ng-keyup="onChange(\'seconds\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="milliseconds" ng-click="onClick($event)" ng-keyup="onChange(\'milliseconds\', $event)" maxlength="2" />',
             scope: {
                 model: '=ngModel'
             },
@@ -96,7 +124,6 @@ angular.module('item', [
                         } else if (input.value.length === 2) {
                             input.value = scope.format(input.value);
                             scope.timeToNum();
-                            scope.$apply();
                         }
                     }
                 };
