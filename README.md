@@ -27,32 +27,26 @@ Go to the folder and open the first page in your web browser
 We are using [jasmine](http://pivotal.github.com/jasmine/) and
 [Karma](http://karma-runner.github.io) for unit tests.
 
-The task runner requires [node.js](http://nodejs.org/), [Grunt](http://gruntjs.com/), [Karma](http://karma-runner.github.io/) and a browser.
+The task runner requires [node.js](http://nodejs.org/), [Grunt](http://gruntjs.com/), [Karma](http://karma-runner.github.io/) and a browser. To run the test run the following command:
 
-* start `scripts/test.sh` (on windows: `scripts\test.bat`)
-  * a browser will start and connect to the Karma server (Chrome is default browser, others can be captured by loading the same url as the one in Chrome or by changing the `config/karma.conf.js` file)
-* to run or re-run tests just change any of your source or test javascript files
+    gulp test
 
 ## Directory Layout
 
     app/                --> all of the files to be used in production
-      css/              --> css files
-      img/              --> image files
+      data/             --> json data files
       index.html        --> app layout file (the main html template file of the app)
-      js/               --> javascript files
-        app.js          --> application
-        Controllers/    --> application controllers
-        Directives/     --> application directives
-        Filters/        --> custom angular filters
-        Services/       --> custom angular services
-      lib/              --> angular and 3rd party javascript libraries
-        angular/        --> the latest angular js
-      partials/         --> angular view partials (partial html templates)
-    docs/               --> developer documentation
+      libs/             --> external libraries and fonts
+      modules/          --> modules grouped by functionality
+        app/            --> main application module
+        item/           --> view/edit item
+        item-new/       --> new item
+        items/          --> list of items
+        overlay/        --> popup overlay
     test/               --> test source files and libraries
       e2e/              --> end-to-end test runner (open in your browser to run)
       unit/             --> unit level specs/tests
 
 ## Contact
 
-For more information on AngularJS please check out `http://angularjs.org/` and angular seed `https://github.com/angular/angular-seed`
+For more information on AngularJS please check out `http://angularjs.org/`

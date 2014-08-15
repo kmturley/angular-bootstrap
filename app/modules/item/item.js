@@ -13,6 +13,7 @@ angular.module('item', [
         
         $scope.data = Data;
         $scope.editable = false;
+        $scope.num = false;
         
         if ($stateParams.id) {
             $rootScope.id = Number($stateParams.id);
@@ -31,5 +32,88 @@ angular.module('item', [
                 $scope.isDisabled = false;
                 $scope.editable = false;
             });
+        };
+    })
+
+    .directive('timecode', function () {
+        'use strict';
+        
+        return {
+            restrict: 'AE',
+            template: '<input type="text" ng-model="hours" ng-click="onClick($event)" ng-keyup="onChange(\'hours\', $event)" maxlength="2" />:<input type="text" ng-model="minutes" ng-click="onClick($event)" ng-keyup="onChange(\'minutes\', $event)" maxlength="2" />:<input type="text" ng-model="seconds" ng-click="onClick($event)" ng-keyup="onChange(\'seconds\', $event)" maxlength="2" />:<input type="text" ng-model="milliseconds" ng-click="onClick($event)" ng-keyup="onChange(\'milliseconds\', $event)" maxlength="2" />',
+            scope: {
+                model: '=ngModel'
+            },
+            link: function (scope, element, attr) {
+                var input = null,
+                    second = attr.ngSecond ? Number(attr.ngSecond) : 1000,
+                    minute = attr.ngMinute ? Number(attr.ngMinute) * second : 60 * second,
+                    hour = attr.ngHour ? Number(attr.ngHour) * minute : 60 * minute;
+
+                scope.numToTime = function (num) {
+                    scope.model = num;
+                    scope.hours = scope.format(num / hour);
+                    scope.minutes = scope.format((num % hour) / minute);
+                    scope.seconds = scope.format(((num % hour) % minute) / second);
+                    scope.milliseconds = scope.format(((num % hour) % minute) % second);
+                };
+
+                scope.format = function (num) {
+                    return num < 10 ? String('0' + Math.floor(num)) : String(Math.floor(num));
+                };
+
+                scope.timeToNum = function () {
+                    scope.model = (Number(scope.hours) * hour) + (Number(scope.minutes) * minute) + (Number(scope.seconds) * second);
+                };
+
+                scope.onChange = function (type, e) {
+                    if (input) {
+                        if (e.which === 38 || e.which === 40) { // up, down
+                            var num = 0;
+                            if (type === 'hours') {
+                                num = e.which === 38 ? scope.model + hour : scope.model - hour;
+                            } else if (type === 'minutes') {
+                                num = e.which === 38 ? scope.model + minute : scope.model - minute;
+                            } else if (type === 'seconds') {
+                                num = e.which === 38 ? scope.model + second : scope.model - second;
+                            } else {
+                                num = e.which === 38 ? scope.model + 1 : scope.model - 1;
+                            }
+                            if (num >= 0) {
+                                scope.numToTime(num);
+                                scope.highlight();
+                            }
+                        } else if (e.which === 37) { // left
+                            e.preventDefault();
+                            input.value = scope.format(input.value);
+                            input = input.previousElementSibling || input;
+                            scope.highlight();
+                        } else if (e.which === 9 || e.which === 39) { // tab, right
+                            e.preventDefault();
+                            input.value = scope.format(input.value);
+                            input = input.nextElementSibling || input;
+                            scope.highlight();
+                        } else if (input.value.length === 2) {
+                            input.value = scope.format(input.value);
+                            scope.timeToNum();
+                            scope.$apply();
+                        }
+                    }
+                };
+
+                scope.onClick = function (e) {
+                    input = e.target || input;
+                    scope.highlight();
+                };
+
+                scope.highlight = function (e) {
+                    window.setTimeout(function () {
+                        input.focus();
+                        input.select();
+                    }, 1);
+                };
+
+                scope.numToTime(scope.model);
+            }
         };
     });

@@ -50,9 +50,11 @@
             </ul>
         </tab>
         <tab heading="Sections">
-            <ul>
-                <li ng-repeat="section in item.sections">{{ section.name }}</li>
-            </ul>
+            <div ng-repeat="section in item.sections" class="section">
+                <h5>Section {{ $index + 1 }}</h5>
+                <timecode ng-model="section.start" ng-hour="60" ng-minute="60" ng-second="30" class="pull-left"></timecode>
+                <timecode ng-model="section.end" ng-hour="60" ng-minute="60" ng-second="30" class="pull-right"></timecode>
+            </div>
         </tab>
         <tab heading="Comments">
             <div ng-repeat="comment in item.comments">
