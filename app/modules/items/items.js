@@ -52,7 +52,7 @@ angular.module('items', [
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.data = Data;
-        $scope.data.get({section: 'items'});
+        $scope.data.query({section: 'items'});
         
         $scope.createDate = function () {
             var d = new Date();
@@ -104,7 +104,7 @@ angular.module('items', [
             }
         };
 
-        $scope.filter('date', 'year');
+        $scope.filter('date', 'day');
     })
 
     .filter('startFrom', function () {
