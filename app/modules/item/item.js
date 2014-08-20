@@ -68,7 +68,7 @@ angular.module('item', [
         
         return {
             restrict: 'AE',
-            template: '<input type="text" ng-model="hours" ng-click="onClick($event)" ng-keyup="onChange(\'hours\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="minutes" ng-click="onClick($event)" ng-keyup="onChange(\'minutes\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="seconds" ng-click="onClick($event)" ng-keyup="onChange(\'seconds\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="milliseconds" ng-click="onClick($event)" ng-keyup="onChange(\'milliseconds\', $event)" maxlength="2" />',
+            template: '<input type="text" ng-model="hours" ng-focus="onFocus($event)" ng-keyup="onChange(\'hours\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="minutes" ng-focus="onFocus($event)" ng-keyup="onChange(\'minutes\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="seconds" ng-focus="onFocus($event)" ng-keyup="onChange(\'seconds\', $event)" maxlength="2" /><span class="divider">:</span><input type="text" ng-model="milliseconds" ng-focus="onFocus($event)" ng-keyup="onChange(\'milliseconds\', $event)" maxlength="2" />',
             scope: {
                 model: '=ngModel'
             },
@@ -114,12 +114,12 @@ angular.module('item', [
                         } else if (e.which === 37) { // left
                             e.preventDefault();
                             input.value = scope.format(input.value);
-                            input = input.previousElementSibling || input;
+                            input = input.previousElementSibling ? input.previousElementSibling.previousElementSibling : input;
                             scope.highlight();
-                        } else if (e.which === 9 || e.which === 39) { // tab, right
+                        } else if (e.which === 39) { // right
                             e.preventDefault();
                             input.value = scope.format(input.value);
-                            input = input.nextElementSibling || input;
+                            input = input.nextElementSibling ? input.nextElementSibling.nextElementSibling : input;
                             scope.highlight();
                         } else if (input.value.length === 2) {
                             input.value = scope.format(input.value);
@@ -128,7 +128,7 @@ angular.module('item', [
                     }
                 };
 
-                scope.onClick = function (e) {
+                scope.onFocus = function (e) {
                     input = e.target || input;
                     scope.highlight();
                 };
