@@ -1,5 +1,5 @@
 /**
- * @file Item new
+ * @module Item new
  * @summary Item new module
  */
 
@@ -8,7 +8,7 @@
 angular.module('item-new', [
     'ui.router'
 ])
-    .controller('item-new', function ($scope, $state, Data) {
+    .controller('item-new', ['$scope', '$state', 'Data', function ($scope, $state, Data) {
         'use strict';
         
         $scope.data = Data;
@@ -25,4 +25,4 @@ angular.module('item-new', [
                 $state.go('items');
             });
         };
-    });
+    }]);

@@ -1,5 +1,5 @@
 /**
- * @file Item
+ * @module Item
  * @summary Item module
  */
 
@@ -8,7 +8,7 @@
 angular.module('item', [
     'ui.router'
 ])
-    .controller('item', function ($rootScope, $scope, $stateParams, Data) {
+    .controller('item', ['$rootScope', '$scope', '$stateParams', 'Data', function ($rootScope, $scope, $stateParams, Data) {
         'use strict';
         
         $scope.data = Data;
@@ -42,9 +42,9 @@ angular.module('item', [
         $scope.removeSection = function () {
             $scope.item.sections.splice($scope.item.sections.length - 1, $scope.item.sections.length);
         };
-    })
+    }])
 
-    .filter('timecode', function () {
+    .filter('timecode', [function () {
         'use strict';
         return function (num) {
             function format(num) {
@@ -61,9 +61,9 @@ angular.module('item', [
             
             return hours + ':' + minutes + ':' + seconds + ':' + milliseconds;
         };
-    })
+    }])
 
-    .directive('timecode', function () {
+    .directive('timecode', [function () {
         'use strict';
         
         return {
@@ -143,4 +143,4 @@ angular.module('item', [
                 scope.numToTime(scope.model);
             }
         };
-    });
+    }]);
