@@ -1,16 +1,17 @@
 /**
- * @file Items
+ * @module Items
  * @summary Items module
  */
 
 /*globals window, angular, document */
 
 angular.module('items', [
+    'ngResource',
     'ui.bootstrap',
     'ui.router'
 ])
 
-    .config(function ($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         'use strict';
 
         $stateProvider
@@ -40,8 +41,9 @@ angular.module('items', [
                     }
                 }
             });
-    })
-    .controller('items', function ($scope, $stateParams, $filter, Data) {
+    }])
+
+    .controller('items', ['$scope', '$stateParams', '$filter', 'Data', function ($scope, $stateParams, $filter, Data) {
         'use strict';
         
         $scope.filters = {
@@ -105,11 +107,11 @@ angular.module('items', [
         };
 
         $scope.filter('date', 'year');
-    })
+    }])
 
-    .filter('startFrom', function () {
+    .filter('startFrom', [function () {
         'use strict';
         return function (input, value) {
             return input ? input.slice(value) : input;
         };
-    });
+    }]);

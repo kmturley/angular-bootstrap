@@ -15,6 +15,10 @@ Once the node modules have installed you should now have access to run the task 
     gulp docs
     gulp test
     gulp watch
+    
+If you are wanting to add/change icons, you can find a nice visual list here:
+
+    http://glyphicons.bootstrapcheatsheets.com
 
 ## Running the app during development
 

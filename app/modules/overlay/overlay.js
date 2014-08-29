@@ -1,5 +1,5 @@
 /**
- * @file App
+ * @module App
  * @summary First module loaded
  */
 
@@ -11,7 +11,7 @@ angular.module('overlay', [
     'ui.bootstrap'
 ])
 
-    .provider('modalState', function ($stateProvider) {
+    .provider('modalState', ['$stateProvider', function ($stateProvider) {
         'use strict';
         var provider = this;
         this.$get = function () {
@@ -38,17 +38,13 @@ angular.module('overlay', [
                 }
             });
         };
-    })
+    }])
 
-    .config(function (modalStateProvider) {
+    .config(['modalStateProvider', function (modalStateProvider) {
         'use strict';
 
         modalStateProvider.state('overlay', {
             url: '/overlay/:template',
             templateUrl: 'modules/overlay/overlay.html'
         });
-    })
-
-    .controller('overlay', function ($scope) {
-        'use strict';
-    });
+    }]);

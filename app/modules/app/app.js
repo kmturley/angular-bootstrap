@@ -1,5 +1,5 @@
 /**
- * @file App
+ * @module App
  * @summary First module loaded
  */
 
@@ -15,7 +15,7 @@ angular.module('app', [
     'overlay'
 ])
 
-    .config(function ($stateProvider) {
+    .config(['$stateProvider', function ($stateProvider) {
         'use strict';
 
         $stateProvider
@@ -27,9 +27,9 @@ angular.module('app', [
                     }
                 }
             });
-    })
+    }])
 
-    .controller('app', function ($rootScope, $scope, $state, Data) {
+    .controller('app', ['$rootScope', '$scope', '$state', 'Data', function ($rootScope, $scope, $state, Data) {
         'use strict';
         
         $scope.data = Data;
@@ -49,9 +49,9 @@ angular.module('app', [
             $scope.loggedIn = false;
             $state.go('app');
         };
-    })
+    }])
 
-    .factory('Data', function ($rootScope, $resource) {
+    .factory('Data', ['$rootScope', '$resource', function ($rootScope, $resource) {
         'use strict';
         return {
             resource: $resource('data/:section.json', null, {
@@ -125,4 +125,4 @@ angular.module('app', [
                 }
             }
         };
-    });
+    }]);
