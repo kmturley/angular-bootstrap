@@ -14,6 +14,7 @@ Once the node modules have installed you should now have access to run the task 
 
     gulp docs
     gulp test
+    gulp compile
     gulp watch
     
 If you are wanting to add/change icons, you can find a nice visual list here:
