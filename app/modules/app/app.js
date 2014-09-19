@@ -47,6 +47,7 @@ angular.module('app', [
         
         $scope.logout = function () {
             $scope.loggedIn = false;
+            $rootScope.user = {};
             $state.go('app');
         };
     }])

@@ -19,3 +19,7 @@
 .items .filters .active {
     color: #000;
 }
+
+.items .filters .btn {
+    margin-bottom: 5px;
+}
