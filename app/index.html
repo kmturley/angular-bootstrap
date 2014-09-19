@@ -30,11 +30,17 @@
                     <li ng-show="!navbarCollapsed"><a ui-sref="overlay">My Profile</a></li>
                     <li ng-show="!navbarCollapsed"><a href ng-click="logout()">Logout</a></li>
                 </ul>
-                <span class="dropdown user pull-right" on-toggle="toggled(open)" ng-show="loggedIn && navbarCollapsed">
-                    <a href class="dropdown-toggle"><img ng-src="{{ user.image }}" class="img-circle" width="35" height="35" />{{ user.name }}</a>
-                    <ul class="dropdown-menu">
+                <ul class="nav navbar-nav" ng-show="!loggedIn">
+                    <li ng-show="!navbarCollapsed"><a href="#">Login</a></li>
+                </ul>
+                <span class="dropdown user pull-right" on-toggle="toggled(open)" ng-show="navbarCollapsed">
+                    <a href class="link dropdown-toggle"><img src="img/blank.jpg" ng-src="{{ user.image }}" class="img-circle" width="35" height="35" />{{ user.name  || 'Logged out'}}</a>
+                    <ul ng-show="loggedIn" class="dropdown-menu">
                         <li><a ui-sref="overlay">My profile</a></li>
                         <li><a href ng-click="logout()">Logout</a></li>
+                    </ul>
+                    <ul ng-show="!loggedIn" class="dropdown-menu">
+                        <li><a href="#">Login</a></li>
                     </ul>
                 </span>
             </div>
