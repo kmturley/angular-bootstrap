@@ -5,6 +5,10 @@
     "date": "2014-05-24T18:21:40.38",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam risus turpis, tincidunt in aliquet sit amet, hendrerit id elit. Aliquam fermentum vitae tortor id facilisis. Mauris suscipit purus sit amet volutpat elementum. Aenean nec sapien non diam viverra venenatis ut in enim.",
     "image": "http://www.allaboutjazz.com/photos/2010/jazz-honors-the-beatles.jpg",
+    "video": [
+        { "type": "mp4", "src": "http://vjs.zencdn.net/v/oceans.mp4", "poster": "http://www.videojs.com/img/poster.jpg", "captions": "http://www.videojs.com/vtt/captions.vtt" },
+        { "type": "webm", "src": "http://vjs.zencdn.net/v/oceans.webm" }
+    ],
     "files": [
         { "name": "Hard Day's Night" },
         { "name": "Yellow Submarine" },
