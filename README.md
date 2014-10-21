@@ -51,6 +51,8 @@ The task runner requires [node.js](http://nodejs.org/), [Grunt](http://gruntjs.c
     test/               --> test source files and libraries
       e2e/              --> end-to-end test runner (open in your browser to run)
       unit/             --> unit level specs/tests
+    build/              --> Auto generated minified code after running gulp compile
+    docs/               --> Auto generated documentation after running gulp docs
 
 ## Contact
 
