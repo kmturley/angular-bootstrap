@@ -44,6 +44,53 @@ angular.module('item', [
         };
     }])
 
+    .directive('player', function () {
+        'use strict';
+        return {
+            restrict: 'E',
+            scope: {
+                videos: '='
+            },
+            link: function (scope, element, attrs) {
+                var video = element.find('video');
+                element.addClass('player');
+                scope.playing = false;
+                
+                video.on('timeupdate', function (e) {
+                    scope.$apply(function () {
+                        scope.percent = (video[0].currentTime / video[0].duration) * 100;
+                    });
+                });
+                
+                scope.frame = function (num) {
+                    if (video[0].readyState !== 0) {
+                        video[0].currentTime += num;
+                    }
+                };
+                
+                scope.toggle = function () {
+                    if (video[0].paused === true) {
+                        video[0].play();
+                        scope.playing = true;
+                    } else {
+                        video[0].pause();
+                        scope.playing = false;
+                    }
+                };
+            },
+            template: '<video preload="none" poster="{{ videos[0].poster }}">' +
+                            '<source ng-repeat="item in videos" ng-src="{{ item.src | trusted }}" type="video/{{ item.type }}" />' +
+                            '<track kind="captions" ng-src="{{ videos[0].captions | trusted }}" srclang="en" label="English" />' +
+                        '</video>' +
+                        '<progressbar value="percent" max="100"></progressbar>' +
+                        '<div class="controls noselect">' +
+                            '<a ng-click="frame(-0.04)"><span class="glyphicon glyphicon-step-backward"></span></a>' +
+                            '<a ng-click="toggle()"><span class="glyphicon glyphicon-play" ng-show="!playing"></span><span class="glyphicon glyphicon-pause" ng-show="playing"></span></a>' +
+                            '<a ng-click="frame(0.04)"><span class="glyphicon glyphicon-step-forward"></span></a>' +
+                        '</div>'
+        };
+    })
+
     .filter('timecode', [function () {
         'use strict';
         return function (num) {

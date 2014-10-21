@@ -1146,13 +1146,9 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-8">
+          <div class="col-lg-8 item">
                 <h2>Video player</h2>
-                <video controls preload="none" poster="http://www.videojs.com/img/poster.jpg" style="max-width: 100%;">
-                    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
-                    <source src="http://vjs.zencdn.net/v/oceans.webm" type="video/webm">
-                    <track kind="captions" src="http://www.videojs.com/vtt/captions.vtt" srclang="en" label="English">
-                </video>
+                <player videos='[{ "type": "mp4", "src": "http://vjs.zencdn.net/v/oceans.mp4", "poster": "http://www.videojs.com/img/poster.jpg", "captions": "http://www.videojs.com/vtt/captions.vtt"}, {"type": "webm", "src": "http://vjs.zencdn.net/v/oceans.webm"}]' />
           </div>
           <div class="col-lg-4">
               <h2>Embed</h2>
