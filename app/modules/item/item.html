@@ -10,10 +10,7 @@
                     <dd ng-show="item.image"><img ng-src="{{ item.image }}" alt="" /></dd>
                     <dt>Video</dt>
                     <dd ng-show="item.video">
-                        <video controls preload="none" poster="{{ item.video[0].poster }}" style="max-width: 100%;">
-                            <source ng-repeat="format in item.video" ng-src="{{ format.src | trusted }}" type="video/{{ format.type }}" />
-                            <track kind="captions" ng-src="{{ item.video[0].captions | trusted }}" srclang="en" label="English" />
-                        </video>
+                        <player videos="item.video" />
                     </dd>
                     <dt>Name</dt>
                     <dd>{{ item.name || 'None' }}</dd>
