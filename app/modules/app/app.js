@@ -161,13 +161,13 @@ angular.module('app', [
             template: '<div class="focus-point">' +
                         '<div class="focus-area">' +
                             '<span class="target" style="left: {{ x }}%; top: {{ y }}%"></span>' +
-                            '<img src="{{ src }}" alt="" ng-mousemove="onMouseMove($event)" ng-mousedown="onMouseDown($event)" ng-mouseup="onMouseUp($event)" draggable="false" class="selectDisable" />' +
+                            '<img src="{{ src }}" alt="" ng-mousemove="onMouseMove($event)" ng-mousedown="onMouseDown($event)" ng-mouseup="onMouseUp($event)" draggable="false" class="source" />' +
                         '</div>' +
                         '<span style="background-image: url(\'{{ src }}\'); background-position: {{ x }}% {{ y }}%" class="preview-portrait"></span>' +
                         '<span style="background-image: url(\'{{ src }}\'); background-position: {{ x }}% {{ y }}%" class="preview"></span>' +
                         '<span style="background-image: url(\'{{ src }}\'); background-position: {{ x }}% {{ y }}%" class="preview-landscape"></span>' +
                         '<span style="background-image: url(\'{{ src }}\'); background-position: {{ x }}% {{ y }}%" class="preview-wide"></span>' +
-                        '<p>{{ x }}% / {{ y }}%</p>' +
+                        '<div class="info">{{ x }}% / {{ y }}%</div>' +
                        '</div>',
             link: function (scope, element, attr) {
                 var dragging = false;
